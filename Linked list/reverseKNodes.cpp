@@ -1,55 +1,66 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-class node {
-    public:
-        int num;
-        node* next;
-        node(int a) {
-            num = a;
-            next = NULL;
-        }
+class node
+{
+public:
+    int num;
+    node *next;
+    node(int a)
+    {
+        num = a;
+        next = NULL;
+    }
 };
-//function to insert node in the list
-void insertNode(node* &head,int val) {
-    node* newNode = new node(val);
-    if(head == NULL) {
+// function to insert node in the list
+void insertNode(node *&head, int val)
+{
+    node *newNode = new node(val);
+    if (head == NULL)
+    {
         head = newNode;
         return;
     }
-    
-    node* temp = head;
-    while(temp->next != NULL) temp = temp->next;
-    
+
+    node *temp = head;
+    while (temp->next != NULL)
+        temp = temp->next;
+
     temp->next = newNode;
     return;
 }
-//function to find length of the Link list
-int lengthOfLinkedList(node* head) {
+// function to find length of the Link list
+int lengthOfLinkedList(node *head)
+{
     int length = 0;
-    while(head != NULL) {
+    while (head != NULL)
+    {
         ++length;
         head = head->next;
     }
     return length;
 }
-//function to reverse k nodes in the list
-node* reverseKNodes(node* head,int k) {
-    if(head == NULL||head->next == NULL) return head;
-    
+// function to reverse k nodes in the list
+node *reverseKNodes(node *head, int k)
+{
+    if (head == NULL || head->next == NULL)
+        return head;
+
     int length = lengthOfLinkedList(head);
-    
-    node* dummyHead = new node(0);
+
+    node *dummyHead = new node(0);
     dummyHead->next = head;
-    
-    node* pre = dummyHead;
-    node* cur;
-    node* nex;
-    
-    while(length >= k) {
+
+    node *pre = dummyHead;
+    node *cur;
+    node *nex;
+
+    while (length >= k)
+    {
         cur = pre->next;
         nex = cur->next;
-        for(int i=1;i<k;i++) {
+        for (int i = 1; i < k; i++)
+        {
             cur->next = nex->next;
             nex->next = pre->next;
             pre->next = nex;
@@ -60,31 +71,35 @@ node* reverseKNodes(node* head,int k) {
     }
     return dummyHead->next;
 }
-//function to print the list
-void printLinkedList(node* head) {
-    while(head->next != NULL) {
-        cout<<head->num<<"->";
+// function to print the list
+void printLinkedList(node *head)
+{
+    while (head->next != NULL)
+    {
+        cout << head->num << "->";
         head = head->next;
     }
-    cout<<head->num<<"\n";
+    cout << head->num << "\n";
 }
 
-int main() {
-    node* head = NULL;
+int main()
+{
+    node *head = NULL;
     int k = 3;
-    insertNode(head,1);
-    insertNode(head,2);
-    insertNode(head,3);
-    insertNode(head,4);
-    insertNode(head,5);
-    insertNode(head,6);
-    insertNode(head,7);
-    insertNode(head,8);
-    
-    cout<<"Original Linked List: "; printLinkedList(head);
-    cout<<"After Reversal of k nodes: "; 
-    node* newHead = reverseKNodes(head,k);
+    insertNode(head, 1);
+    insertNode(head, 2);
+    insertNode(head, 3);
+    insertNode(head, 4);
+    insertNode(head, 5);
+    insertNode(head, 6);
+    insertNode(head, 7);
+    insertNode(head, 8);
+
+    cout << "Original Linked List: ";
+    printLinkedList(head);
+    cout << "After Reversal of k nodes: ";
+    node *newHead = reverseKNodes(head, k);
     printLinkedList(newHead);
-    
+
     return 0;
 }
